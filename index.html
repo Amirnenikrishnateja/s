@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>  
+        <style>
+           button{
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                border: none;
+                color:white
+            } 
+        </style>  
+    </head>
+    <body style="background-size:250%;background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoZ3ZYc8QsaSlpRfJGHgg9slwNrwS4JI6S5w&usqp=CAU');">
+        <div id="d1">
+        
+        </div>
+        <script type="text/babel">
+            var b
+            var Time=()=>{
+                var [mins,setmins]=React.useState(0)
+                var [secs,setsecs]=React.useState(0)
+                var [millisecs,setmillisecs]=React.useState(0)
+                var [list,setlist]=React.useState([])
+                
+                function start(){
+                    b=setInterval(()=>{                          
+                        if(millisecs==100)
+                        {
+                            millisecs=0 
+                            setsecs(++secs)
+                        }
+                        
+                        else{
+                            setmillisecs(millisecs++)
+                            
+                        }
+                        if(secs===59)
+                        {
+                            secs=0
+                            setmins(mins++)
+                        }
+                        document.getElementById("2").style.display="block"
+                        document.getElementById("3").style.display="block"
+                        document.getElementById("1").style.display="none"
+                    },10)
+                
+                
+                    
+                }
+                function KT(){
+                    clearInterval(b);
+                    document.getElementById("1").style.display="block"
+                    document.getElementById("3").style.display="none"
+                    
+                    
+                }
+                function S(){
+                    clearInterval(b);
+                    setsecs(0)
+                    setmins(0)
+                    setmillisecs(0)
+                    document.getElementById("1").style.display="block"
+                    document.getElementById("3").style.display="none"
+                    document.getElementById("2").style.display="none"
+                }
+                
+                return (<div style={{display:'flex',flexDirection:'column',
+                                    justifyContent:'center',alignItems:'center',
+                                    border:"2px solid",width:"250px",hieght:"250px",margin:" 0 auto",
+                                    padding:"100px",marginTop:"150px",color:"white",
+                                    backgroundColor:"black",borderRadius:"50%"}}>
+                            <div style={{display:'flex'}}>
+                            <h1>{(mins>=10?mins:("0"+mins))}</h1>
+                            <h1>:</h1>
+                            <h1>{(secs>=10?secs:("0"+secs))}</h1>
+                            <h1>:</h1>
+                            <h1>{(millisecs<10)?"0"+millisecs:millisecs}</h1>
+                            </div>
+                            <div style={{display:'flex'}}>
+                            <button id="1" style={{backgroundColor:"green"}}onClick={()=>start()}>start</button>&nbsp;
+                            <button id="2" style={{display:"none",backgroundColor:"red"}}onClick={()=>S()}>stop</button>&nbsp;
+                            <button id="3" style={{display:"none",backgroundColor:"orange"}}onClick={()=>KT()}>pause</button>&nbsp;
+                            </div>
+                            <ul>
+                            </ul>
+                        </div>)
+            }
+            ReactDOM.render(<Time/>,document.getElementById("d1"))
+        </script>
+    </body>
+  </html>
